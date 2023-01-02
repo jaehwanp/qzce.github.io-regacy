@@ -20,16 +20,18 @@
     var CONFIG = {"hostname":"qzce.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="run">
+  <meta name="description" content="test">
 <meta property="og:type" content="article">
-<meta property="og:title" content="cookie-implement-1">
+<meta property="og:title" content="[Spring] 로그인 쿠키 구현">
 <meta property="og:url" content="http://qzce.github.io/2023/01/01/cookie-implement-1/index.html">
 <meta property="og:site_name" content="qzce 개발블로그">
-<meta property="og:description" content="run">
+<meta property="og:description" content="test">
 <meta property="og:locale" content="ko_KR">
 <meta property="article:published_time" content="2023-01-01T10:34:53.000Z">
-<meta property="article:modified_time" content="2023-01-01T10:34:53.082Z">
+<meta property="article:modified_time" content="2023-01-02T12:30:11.204Z">
 <meta property="article:author" content="qzce">
+<meta property="article:tag" content="Cookie">
+<meta property="article:tag" content="Spring">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://qzce.github.io/2023/01/01/cookie-implement-1/">
@@ -45,7 +47,7 @@
   };
 </script>
 
-  <title>cookie-implement-1 | qzce 개발블로그</title>
+  <title>[Spring] 로그인 쿠키 구현 | qzce 개발블로그</title>
   
 
 
@@ -173,7 +175,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          cookie-implement-1
+          [Spring] 로그인 쿠키 구현
         </h1>
 
         <div class="post-meta">
@@ -184,6 +186,22 @@
               <span class="post-meta-item-text">작성일</span>
 
               <time title="Post created: 2023-01-01 19:34:53" itemprop="dateCreated datePublished" datetime="2023-01-01T19:34:53+09:00">2023-01-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Updated at: 2023-01-02 21:30:11" itemprop="dateModified" datetime="2023-01-02T21:30:11+09:00">2023-01-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a>
+                </span>
             </span>
 
           
@@ -197,7 +215,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h3 id="test"><a href="#test" class="headerlink" title="test"></a>test</h3>
     </div>
 
     
@@ -205,6 +223,10 @@
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Cookie/" rel="tag"># Cookie</a>
+              <a href="/tags/Spring/" rel="tag"># Spring</a>
+          </div>
 
         
 
@@ -215,7 +237,10 @@
     <a href="/2023/01/01/programmers-42898/" rel="prev" title="게임 맵 최단거리">
       <i class="fa fa-chevron-left"></i> 게임 맵 최단거리
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2023/01/02/thymeleaf-separate/" rel="next" title="[thymeleaf] HTML 분리 (head, header, footer)">
+      [thymeleaf] HTML 분리 (head, header, footer) <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -274,6 +299,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#test"><span class="nav-number">1.</span> <span class="nav-text">test</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -289,20 +315,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">카테고리</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>
