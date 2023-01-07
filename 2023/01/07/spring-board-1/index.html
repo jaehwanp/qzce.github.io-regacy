@@ -20,21 +20,24 @@
     var CONFIG = {"hostname":"qzce.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="문제링크 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647import java.util.ArrayList;class Solution &amp;#123;	    public int[] solution(int[] progresses, int[] speeds) &amp;#1">
+  <meta name="description" content="개요 여러 프로젝트를 위한 기본적인 게시판 시스템 구축하기 위함  개발환경 및 세팅 java [OpenJDK 11] spring boot [ver.(2.7.7)] mariadb [ver.(10.9.4)]  build.gradle12345678dependencies &amp;#123;    implementation &amp;#x27;org.springframework.b">
 <meta property="og:type" content="article">
-<meta property="og:title" content="기능개발">
-<meta property="og:url" content="http://qzce.github.io/2023/01/01/programmers-42586/index.html">
+<meta property="og:title" content="[SPRING] SPRING BOOT + REST API + JPA 게시판(1) - 구성">
+<meta property="og:url" content="http://qzce.github.io/2023/01/07/spring-board-1/index.html">
 <meta property="og:site_name" content="qzce 개발블로그">
-<meta property="og:description" content="문제링크 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647import java.util.ArrayList;class Solution &amp;#123;	    public int[] solution(int[] progresses, int[] speeds) &amp;#1">
+<meta property="og:description" content="개요 여러 프로젝트를 위한 기본적인 게시판 시스템 구축하기 위함  개발환경 및 세팅 java [OpenJDK 11] spring boot [ver.(2.7.7)] mariadb [ver.(10.9.4)]  build.gradle12345678dependencies &amp;#123;    implementation &amp;#x27;org.springframework.b">
 <meta property="og:locale" content="ko_KR">
-<meta property="article:published_time" content="2023-01-01T10:01:47.000Z">
-<meta property="article:modified_time" content="2023-01-01T10:03:18.081Z">
+<meta property="og:image" content="http://qzce.github.io/public/images/post/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202023-01-07%20%EC%98%A4%ED%9B%84%206.38.59.png">
+<meta property="article:published_time" content="2023-01-07T09:00:39.000Z">
+<meta property="article:modified_time" content="2023-01-07T10:49:40.525Z">
 <meta property="article:author" content="qzce">
-<meta property="article:tag" content="코딩테스트">
-<meta property="article:tag" content="프로그래머스">
+<meta property="article:tag" content="spring">
+<meta property="article:tag" content="jpa">
+<meta property="article:tag" content="rest_api">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://qzce.github.io/public/images/post/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202023-01-07%20%EC%98%A4%ED%9B%84%206.38.59.png">
 
-<link rel="canonical" href="http://qzce.github.io/2023/01/01/programmers-42586/">
+<link rel="canonical" href="http://qzce.github.io/2023/01/07/spring-board-1/">
 
 
 <script id="page-configurations">
@@ -47,7 +50,7 @@
   };
 </script>
 
-  <title>기능개발 | qzce 개발블로그</title>
+  <title>[SPRING] SPRING BOOT + REST API + JPA 게시판(1) - 구성 | qzce 개발블로그</title>
   
 
 
@@ -162,7 +165,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
-    <link itemprop="mainEntityOfPage" href="http://qzce.github.io/2023/01/01/programmers-42586/">
+    <link itemprop="mainEntityOfPage" href="http://qzce.github.io/2023/01/07/spring-board-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/coffeebook.jpg">
@@ -175,7 +178,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          기능개발
+          [SPRING] SPRING BOOT + REST API + JPA 게시판(1) - 구성
         </h1>
 
         <div class="post-meta">
@@ -186,7 +189,7 @@
               <span class="post-meta-item-text">작성일</span>
               
 
-              <time title="Post created: 2023-01-01 19:01:47 / Updated at: 19:03:18" itemprop="dateCreated datePublished" datetime="2023-01-01T19:01:47+09:00">2023-01-01</time>
+              <time title="Post created: 2023-01-07 18:00:39 / Updated at: 19:49:40" itemprop="dateCreated datePublished" datetime="2023-01-07T18:00:39+09:00">2023-01-07</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -194,7 +197,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%EC%BD%94%EB%94%A9%ED%85%8C%EC%8A%A4%ED%8A%B8/" itemprop="url" rel="index"><span itemprop="name">코딩테스트</span></a>
+                  <a href="/categories/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a>
                 </span>
             </span>
 
@@ -209,20 +212,22 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><a target="_blank" rel="noopener" href="https://school.programmers.co.kr/learn/courses/30/lessons/42586">문제링크</a></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[] solution(<span class="type">int</span>[] progresses, <span class="type">int</span>[] speeds) &#123;</span><br><span class="line">    	</span><br><span class="line">    	ArrayList&lt;Integer&gt; arr = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;Integer&gt;();</span><br><span class="line">		<span class="type">int</span> <span class="variable">order</span> <span class="operator">=</span> <span class="number">0</span>, completeWork = <span class="number">0</span>;</span><br><span class="line">		<span class="type">boolean</span> <span class="variable">addCheck</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">		</span><br><span class="line">        <span class="comment">// 최대 100번 반복</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt;<span class="number">100</span>; i++) &#123;</span><br><span class="line">			completeWork = <span class="number">0</span>;	<span class="comment">// 초기화</span></span><br><span class="line">			addCheck = <span class="literal">false</span>;	</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// order 시작 이유 : 이미 지나간 작업은 불필요한 작업</span></span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> j=order; j&lt;progresses.length; j++) &#123;</span><br><span class="line">				progresses[j] += speeds[j];</span><br><span class="line">                </span><br><span class="line">                <span class="comment">// 진도 100% 넘으면 배열에 넣기</span></span><br><span class="line">				<span class="keyword">if</span>(progresses[order] &gt;= <span class="number">100</span>) &#123;</span><br><span class="line">					order++;</span><br><span class="line">					completeWork++;</span><br><span class="line">					addCheck = <span class="literal">true</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">            <span class="comment">// 배열에 넣기</span></span><br><span class="line">			<span class="keyword">if</span>(addCheck) &#123;</span><br><span class="line">				arr.add(completeWork);</span><br><span class="line">			&#125;</span><br><span class="line">            <span class="comment">// 전체 작업 끝나면 종료</span></span><br><span class="line">			<span class="keyword">if</span>(progresses.length &lt;= order) &#123;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">			</span><br><span class="line">        <span class="comment">// 답 제출</span></span><br><span class="line">		<span class="type">int</span>[] answer = <span class="keyword">new</span> <span class="title class_">int</span>[arr.size()];</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt;arr.size(); i++) &#123;</span><br><span class="line">			answer[i] = arr.get(i);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> answer;</span><br><span class="line">		</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h2 id="개요"><a href="#개요" class="headerlink" title="개요"></a>개요</h2><ul>
+<li>여러 프로젝트를 위한 기본적인 게시판 시스템 구축하기 위함</li>
+</ul>
+<h2 id="개발환경-및-세팅"><a href="#개발환경-및-세팅" class="headerlink" title="개발환경 및 세팅"></a>개발환경 및 세팅</h2><ul>
+<li>java [OpenJDK 11]</li>
+<li>spring boot [ver.(2.7.7)]</li>
+<li>mariadb [ver.(10.9.4)]</li>
+</ul>
+<h3 id="build-gradle"><a href="#build-gradle" class="headerlink" title="build.gradle"></a><em>build.gradle</em></h3><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">    implementation <span class="string">&#x27;org.springframework.boot:spring-boot-starter-data-jpa&#x27;</span></span><br><span class="line">    implementation <span class="string">&#x27;org.springframework.boot:spring-boot-starter-web&#x27;</span></span><br><span class="line">    compileOnly <span class="string">&#x27;org.projectlombok:lombok&#x27;</span></span><br><span class="line">    runtimeOnly <span class="string">&#x27;org.mariadb.jdbc:mariadb-java-client&#x27;</span></span><br><span class="line">    annotationProcessor <span class="string">&#x27;org.projectlombok:lombok&#x27;</span></span><br><span class="line">    testImplementation <span class="string">&#x27;org.springframework.boot:spring-boot-starter-test&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h3 id="application-yml"><a href="#application-yml" class="headerlink" title="application.yml"></a><em>application.yml</em></h3><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">datasource:</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">jdbc:mariadb://localhost:3306/[database</span> <span class="string">name]</span></span><br><span class="line">    <span class="attr">username:</span> [<span class="string">name</span>]</span><br><span class="line">    <span class="attr">password:</span> [<span class="string">password</span>]</span><br><span class="line">    <span class="attr">driver-class-name:</span> <span class="string">org.mariadb.jdbc.Driver</span></span><br></pre></td></tr></table></figure>
 
-
-
-
-<h4 id="간단-알고리즘"><a href="#간단-알고리즘" class="headerlink" title="간단 알고리즘"></a>간단 알고리즘</h4><ol>
-<li>모든 작업에 각각 개발시간을 더함</li>
-<li>맨 앞 작업이 100을 넘는지 확인</li>
-<li>맨 앞 작업부터 100 이상 개수 구하여 배열에 넣음</li>
-<li>맨 앞을 3번에서 구한 개수로 바꿈</li>
-<li>모든 작업이 끝날때까지 1~4 반복</li>
-</ol>
+<h2 id="결과"><a href="#결과" class="headerlink" title="결과"></a>결과</h2><p>Application.java &gt; @SpringBootApplication &gt; 실행</p>
+<p>localhost:8080으로 접속</p>
+<p><img src="/../../public/images/post/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202023-01-07%20%EC%98%A4%ED%9B%84%206.38.59.png" alt="image"></p>
+<p>해당 화면이 나오면 성공</p>
 
     </div>
 
@@ -232,8 +237,9 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%EC%BD%94%EB%94%A9%ED%85%8C%EC%8A%A4%ED%8A%B8/" rel="tag"># 코딩테스트</a>
-              <a href="/tags/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/" rel="tag"># 프로그래머스</a>
+              <a href="/tags/spring/" rel="tag"># spring</a>
+              <a href="/tags/jpa/" rel="tag"># jpa</a>
+              <a href="/tags/rest-api/" rel="tag"># rest_api</a>
           </div>
 
         
@@ -242,12 +248,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2023/01/01/programmers-42888/" rel="prev" title="오픈채팅방">
-      <i class="fa fa-chevron-left"></i> 오픈채팅방
+    <a href="/2023/01/04/error-DataJpaTest-dataSource/" rel="prev" title="[Error] @DataJpaTest 외장 DB 에러">
+      <i class="fa fa-chevron-left"></i> [Error] @DataJpaTest 외장 DB 에러
     </a></div>
       <div class="post-nav-item">
-    <a href="/2023/01/01/programmers-81302/" rel="next" title="거리두기 확인하기">
-      거리두기 확인하기 <i class="fa fa-chevron-right"></i>
+    <a href="/2023/01/07/spring-board-2/" rel="next" title="[SPRING] SPRING BOOT + REST API + JPA 게시판(2) - Entity">
+      [SPRING] SPRING BOOT + REST API + JPA 게시판(2) - Entity <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -307,7 +313,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EA%B0%84%EB%8B%A8-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98"><span class="nav-number">1.</span> <span class="nav-text">간단 알고리즘</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%EA%B0%9C%EC%9A%94"><span class="nav-number">1.</span> <span class="nav-text">개요</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD-%EB%B0%8F-%EC%84%B8%ED%8C%85"><span class="nav-number">2.</span> <span class="nav-text">개발환경 및 세팅</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#build-gradle"><span class="nav-number">2.1.</span> <span class="nav-text">build.gradle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#application-yml"><span class="nav-number">2.2.</span> <span class="nav-text">application.yml</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EA%B2%B0%EA%B3%BC"><span class="nav-number">3.</span> <span class="nav-text">결과</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
