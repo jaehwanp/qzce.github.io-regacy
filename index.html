@@ -157,6 +157,142 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
+    <link itemprop="mainEntityOfPage" href="http://qzce.github.io/2023/01/19/spring-detail-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/coffeebook.jpg">
+      <meta itemprop="name" content="qzce">
+      <meta itemprop="description" content="run">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="qzce 개발블로그">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/01/19/spring-detail-1/" class="post-title-link" itemprop="url">[SPRING] Spring framework</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+
+              <time title="Post created: 2023-01-19 12:11:24" itemprop="dateCreated datePublished" datetime="2023-01-19T12:11:24+09:00">2023-01-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Updated at: 2023-02-16 21:03:54" itemprop="dateModified" datetime="2023-02-16T21:03:54+09:00">2023-02-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="SPRING"><a href="#SPRING" class="headerlink" title="SPRING"></a>SPRING</h2><h3 id="spring-framework란"><a href="#spring-framework란" class="headerlink" title="spring framework란?"></a>spring framework란?</h3><p>스프링 프레임워크(영어: Spring Framework)는 자바 플랫폼을 위한 오픈 소스 애플리케이션 프레임워크로서 간단히 스프링(Spring)이라고도 한다. 동적인 웹 사이트를 개발하기 위한 여러 가지 서비스를 제공하고 있다.</p>
+<p>개발자가 편리하게 프로그램을 개발할 수 있도록 갖춰진 구조</p>
+<h3 id="spring의-사용이유"><a href="#spring의-사용이유" class="headerlink" title="spring의 사용이유"></a>spring의 사용이유</h3><ul>
+<li>생산성 향상 : 자주 사용되는 기능을 라이브러리 형태로 제공하고 있어서 구현에 시간이 많이 들지 않음</li>
+<li>모듈화 : 독립적인 모듈로 이루어져 있어, 필요한 모듈만 가져와서 사용가능</li>
+<li>유지보수 높음 : 객체 지향 프로그래밍 기반으로 코드의 유지보수성 증가, AOP(Aspect-Oriented Programming) 지원하여 핵심 로직과 부가적인 기능을 분리해서 관리</li>
+<li>안정성 : 테스트 프레임워크와 통합되어있어서 테스트가 쉽고, 다양한 보안 기능 제공하여 안정성이 높아짐</li>
+</ul>
+<h3 id="Spring-모듈"><a href="#Spring-모듈" class="headerlink" title="Spring 모듈"></a>Spring 모듈</h3><p><img src="https://user-images.githubusercontent.com/45479802/219313465-726e0a68-9d4b-4034-9f86-f93b618ec763.png" alt="image"></p>
+<ul>
+<li><p>DAO</p>
+<p>JDBC 추상 계층 제공, 데이터가 담겨있는 VO 클래스를 사용</p>
+</li>
+<li><p>ORM</p>
+<p>JPA, Hibernate와 같은 ORM이나 MyBatis같은 데이터베이스 API 등과 통합할 수 있는 기능 제공</p>
+</li>
+<li><p>AOP</p>
+<p>Aspect-Oriented Programming을 지원하는 모듈.</p>
+<p>핵심 로직과 부가적인 기능을 분리하여 관리할 수 있고, 트랜잭션, 로깅, 보안 등 다양한 기능 제공</p>
+</li>
+<li><p>JEE</p>
+</li>
+<li><p>Web</p>
+</li>
+<li><p>Core</p>
+<p>IoC(제어역전), DI(의존성주입) 기능 제공 (코드의 결합도를 낮추고 코드의 유지보수성이 높아짐)</p>
+<ul>
+<li>IoC (Inversion of Control) : 객체 생성과 관리를 개발자가 아닌 프레임워크가 담당함</li>
+<li>DI (Dependency Injection) : 객체간 의존성을 자동으로 주입함</li>
+<li>IoC와 DI 차이점<ul>
+<li>IoC와 DI의 차이점은 IoC는 객체 생성과 관리에 대한 제어권을 프레임워크에게 넘기는 것이고, DI는 객체간 의존성을 자동으로 주입하는 것입니다. 둘은 밀접한 관련이 있으며, Spring Framework에서는 IoC 컨테이너를 통해 객체의 생명주기와 의존성을 관리하며, DI를 구현합니다.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Spring-MVC"><a href="#Spring-MVC" class="headerlink" title="Spring MVC"></a>Spring MVC</h2><p>Model - View - Controller 패턴</p>
+<table>
+<thead>
+<tr>
+<th align="left">패턴</th>
+<th align="left">내용</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Model</td>
+<td align="left">비즈니스 로직을 담당하는 컴포넌트로 데이터 생성, 저장, 검색 역할 수행 (POJO 클래스를 이용하여 구현)</td>
+</tr>
+<tr>
+<td align="left">View</td>
+<td align="left">사용자 인터페이스 담당</td>
+</tr>
+<tr>
+<td align="left">Controller</td>
+<td align="left">Model, View를 연결, 사용자의 요청을 처리하고 결과를 View에 전달</td>
+</tr>
+</tbody></table>
+<p>Spring에서는 DispatcherServlet을 이용하여 MVC패턴을 구현함</p>
+<blockquote>
+<p> 클라이언트 요청 -&gt; DispathcherServlet 에 도달 -&gt; 해당 요청을 처리할 Controller를 선택 -&gt; Controller에서 Model 생성 및 View 연결 -&gt; 결과반환</p>
+</blockquote>
+<h2 id="Bean"><a href="#Bean" class="headerlink" title="Bean"></a>Bean</h2><p>Spring IoC 컨테이너에 의해 생성되어 관리되는 객체 </p>
+<p>싱글톤 패턴(객체의 인스턴스가 오직 1개만 생성되는 패턴)을 기본으로 사용 </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
     <link itemprop="mainEntityOfPage" href="http://qzce.github.io/2023/01/12/spring-board-5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -863,97 +999,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
-    <link itemprop="mainEntityOfPage" href="http://qzce.github.io/2023/01/01/programmers-43105/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/coffeebook.jpg">
-      <meta itemprop="name" content="qzce">
-      <meta itemprop="description" content="run">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="qzce 개발블로그">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/01/01/programmers-43105/" class="post-title-link" itemprop="url">정수 삼각형</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">작성일</span>
-              
-
-              <time title="Post created: 2023-01-01 19:02:03 / Updated at: 19:04:17" itemprop="dateCreated datePublished" datetime="2023-01-01T19:02:03+09:00">2023-01-01</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%EC%BD%94%EB%94%A9%ED%85%8C%EC%8A%A4%ED%8A%B8/" itemprop="url" rel="index"><span itemprop="name">코딩테스트</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a target="_blank" rel="noopener" href="https://programmers.co.kr/learn/courses/30/lessons/43105">문제링크</a></p>
-<ol>
-<li>DFS</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> <span class="variable">compare</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">solution</span><span class="params">(<span class="type">int</span>[][] triangle)</span> &#123;</span><br><span class="line">    	<span class="type">int</span> <span class="variable">answer</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    	</span><br><span class="line">        <span class="type">Node</span> <span class="variable">node</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Node</span>(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        </span><br><span class="line">        dfs(triangle, node, answer);</span><br><span class="line">        </span><br><span class="line">        answer = compare;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> answer;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">dfs</span><span class="params">(<span class="type">int</span>[][] triangle, Node node, <span class="type">int</span> answer)</span> &#123;</span><br><span class="line">    	</span><br><span class="line">    	answer += triangle[node.x][node.y];</span><br><span class="line">    	</span><br><span class="line">    	<span class="keyword">if</span>(node.x+<span class="number">1</span> &lt; triangle.length) &#123;</span><br><span class="line">    		</span><br><span class="line">    		<span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> answer;</span><br><span class="line">    		</span><br><span class="line">			dfs(triangle, <span class="keyword">new</span> <span class="title class_">Node</span>(node.x+<span class="number">1</span>,node.y), sum);</span><br><span class="line">			dfs(triangle, <span class="keyword">new</span> <span class="title class_">Node</span>(node.x+<span class="number">1</span>,node.y+<span class="number">1</span>), sum);</span><br><span class="line">			</span><br><span class="line">    	&#125;</span><br><span class="line">    	</span><br><span class="line">    	<span class="keyword">if</span>(node.x+<span class="number">1</span> == triangle.length) &#123;</span><br><span class="line">    		<span class="keyword">if</span>(compare &lt; answer) &#123;</span><br><span class="line">    			compare = answer;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">			</span><br><span class="line">	&#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Node</span> &#123;</span><br><span class="line">	</span><br><span class="line">	<span class="type">int</span> x;</span><br><span class="line">	<span class="type">int</span> y;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">Node</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.x = x;</span><br><span class="line">		<span class="built_in">this</span>.y = y;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>O(n*2)</strong>  </p>
-<p>문제의 조건에서 <code>최대 깊이 500</code>을 고려 하지 못한방법</p>
-<p>최악의 경우 500²번 실행해야하기에 효율성이 떨어짐 </p>
-<hr>
-<ol start="2">
-<li>최적화</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="type">int</span> <span class="title function_">solution</span><span class="params">(<span class="type">int</span>[][] triangle)</span> &#123;</span><br><span class="line">    	<span class="type">int</span> <span class="variable">answer</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    	</span><br><span class="line">    	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt;triangle.length-<span class="number">1</span>; i++) &#123;</span><br><span class="line">    		<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>; j&lt;triangle[i].length; j++) &#123;</span><br><span class="line">    			</span><br><span class="line">    			<span class="keyword">if</span>(j==triangle[i].length-<span class="number">1</span>) &#123;</span><br><span class="line">    				triangle[i+<span class="number">1</span>][j+<span class="number">1</span>] += triangle[i][j];</span><br><span class="line">    				<span class="keyword">if</span>(i==<span class="number">0</span> &amp;&amp; j==<span class="number">0</span>) &#123;</span><br><span class="line">    					triangle[i+<span class="number">1</span>][j] += triangle[i][j];</span><br><span class="line">        			&#125;</span><br><span class="line">    			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    				</span><br><span class="line">    				<span class="keyword">if</span>(j==<span class="number">0</span>) &#123;</span><br><span class="line">        				triangle[i+<span class="number">1</span>][j] += triangle[i][j];</span><br><span class="line">        			&#125;</span><br><span class="line">    				</span><br><span class="line">    				<span class="keyword">if</span>(triangle[i][j] &gt; triangle[i][j+<span class="number">1</span>]) &#123;</span><br><span class="line">    					triangle[i+<span class="number">1</span>][j+<span class="number">1</span>] += triangle[i][j];</span><br><span class="line">    				&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    					triangle[i+<span class="number">1</span>][j+<span class="number">1</span>] += triangle[i][j+<span class="number">1</span>];</span><br><span class="line">    				&#125;</span><br><span class="line">    			&#125;</span><br><span class="line">    		&#125;</span><br><span class="line">    	&#125;</span><br><span class="line">    	</span><br><span class="line">    	Arrays.sort(triangle[triangle.length-<span class="number">1</span>]);</span><br><span class="line">    	</span><br><span class="line">    	answer = triangle[triangle.length-<span class="number">1</span>][triangle.length-<span class="number">1</span>];</span><br><span class="line">    	</span><br><span class="line">        <span class="keyword">return</span> answer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>O(n)</strong>  </p>
-<p>모든 노드를 한 번만 방문하므로 효율성에서 좋아짐</p>
-<hr>
-<h1 id=""><a href="#" class="headerlink" title=""></a></h1><ul>
-<li>만약 1~99999999 까지 더한다면</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>; i&lt;=<span class="number">99999999</span>; i++) &#123;</span><br><span class="line">	answer += i;  <span class="comment">// O(n)</span></span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
-<p>단순하게 위 식으로 쓰기보단, 생각하고 효율적인 방식을 결정해야함</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">answer = <span class="number">99999999</span> * (<span class="number">1</span>+<span class="number">99999999</span>) / <span class="number">2</span> <span class="comment">// O(1)</span></span><br></pre></td></tr></table></figure>
-<p>위 식처럼.</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1025,7 +1070,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
