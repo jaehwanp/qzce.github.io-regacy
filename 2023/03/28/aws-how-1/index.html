@@ -20,17 +20,25 @@
     var CONFIG = {"hostname":"qzce.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="AWS인스턴스 설정 (free tier)AWS 콘솔에서 인스턴스 시작 버튼을 누름  원하는 이름, 원하는 OS를 설정.     키페어 생성     네트워크 설정  모든 IP에서 들어갈 수있게 SSH트래픽허용 (0.0.0.0&#x2F;0)으로 설정함  주의사항 12개월 후 돈내야함  프리 티어: 첫 해에는 월별 프리 티어 AMI에 대한 t2.micro(또는">
+  <meta name="description" content="인스턴스 설정 (free tier)AWS 콘솔에서 인스턴스 시작 버튼을 누름  원하는 이름, 원하는 OS를 설정.     키페어 생성     네트워크 설정  모든 IP에서 들어갈 수있게 SSH트래픽허용 (0.0.0.0&#x2F;0)으로 설정함  주의사항 12개월 후 돈내야함 (다시 ec2 만들어서 배포하면 가능)  프리 티어: 첫 해에는 월별 프리 티어 A">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[AWS] AWS">
 <meta property="og:url" content="http://qzce.github.io/2023/03/28/aws-how-1/index.html">
 <meta property="og:site_name" content="qzce 개발블로그">
-<meta property="og:description" content="AWS인스턴스 설정 (free tier)AWS 콘솔에서 인스턴스 시작 버튼을 누름  원하는 이름, 원하는 OS를 설정.     키페어 생성     네트워크 설정  모든 IP에서 들어갈 수있게 SSH트래픽허용 (0.0.0.0&#x2F;0)으로 설정함  주의사항 12개월 후 돈내야함  프리 티어: 첫 해에는 월별 프리 티어 AMI에 대한 t2.micro(또는">
+<meta property="og:description" content="인스턴스 설정 (free tier)AWS 콘솔에서 인스턴스 시작 버튼을 누름  원하는 이름, 원하는 OS를 설정.     키페어 생성     네트워크 설정  모든 IP에서 들어갈 수있게 SSH트래픽허용 (0.0.0.0&#x2F;0)으로 설정함  주의사항 12개월 후 돈내야함 (다시 ec2 만들어서 배포하면 가능)  프리 티어: 첫 해에는 월별 프리 티어 A">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:image" content="https://user-images.githubusercontent.com/45479802/228190970-8aad6aea-600e-4117-9069-aa0337245057.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/45479802/228192010-3475ac4b-49b9-4f44-8968-04587162a2f1.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/45479802/228750675-5e6cfa9c-4344-42c4-a219-d03dd87c94d6.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/45479802/228751090-13d3ab86-672e-4be4-ba05-043ac7355f43.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/45479802/228751375-30d3ed1a-6211-4865-968b-a22014d161fe.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/45479802/228805165-b3d56966-e4d4-47d1-9b28-1863afe4a10b.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/45479802/228798320-b1b63c1f-58ac-4abb-92da-0dd961b05b3e.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/45479802/228798998-01fca39f-5f18-4c1a-8fa2-028c5778822e.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/45479802/228809684-e273f64c-cff5-4c18-a8f6-0f9a9046e85e.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/45479802/228844197-f0af6672-cae9-41f1-8800-0ecd17da78a2.png">
 <meta property="article:published_time" content="2023-03-28T09:12:36.000Z">
-<meta property="article:modified_time" content="2023-03-29T16:05:39.869Z">
+<meta property="article:modified_time" content="2023-03-30T13:21:15.274Z">
 <meta property="article:author" content="qzce">
 <meta property="article:tag" content="AWS">
 <meta property="article:tag" content="docker">
@@ -195,7 +203,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Updated at: 2023-03-30 01:05:39" itemprop="dateModified" datetime="2023-03-30T01:05:39+09:00">2023-03-30</time>
+                <time title="Updated at: 2023-03-30 22:21:15" itemprop="dateModified" datetime="2023-03-30T22:21:15+09:00">2023-03-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -218,7 +226,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="AWS"><a href="#AWS" class="headerlink" title="AWS"></a>AWS</h2><h3 id="인스턴스-설정-free-tier"><a href="#인스턴스-설정-free-tier" class="headerlink" title="인스턴스 설정 (free tier)"></a>인스턴스 설정 (free tier)</h3><p>AWS 콘솔에서 인스턴스 시작 버튼을 누름</p>
+        <h2 id="인스턴스-설정-free-tier"><a href="#인스턴스-설정-free-tier" class="headerlink" title="인스턴스 설정 (free tier)"></a>인스턴스 설정 (free tier)</h2><p>AWS 콘솔에서 인스턴스 시작 버튼을 누름</p>
 <ol>
 <li>원하는 이름, 원하는 OS를 설정.</li>
 </ol>
@@ -236,11 +244,54 @@
 <hr>
 <p>주의사항</p>
 <p>12개월 후 돈내야함</p>
+<p>(다시 ec2 만들어서 배포하면 가능)</p>
 <blockquote>
 <p>프리 티어: 첫 해에는 월별 프리 티어 AMI에 대한 t2.micro(또는 t2.micro를 사용할 수 없는 리전의 t3.micro) 인스턴스 사용량 750시간, EBS 스토리지 30GiB, IO 2백만 개, 스냅샷 1GB, 인터넷 대역폭 100GB가 포함됩니다.</p>
 </blockquote>
 <hr>
+<h2 id="에러"><a href="#에러" class="headerlink" title="에러"></a>에러</h2><p>(Load key “***.pem”: Operation not permitted)</p>
+<img width="436" alt="image" src="https://user-images.githubusercontent.com/45479802/228750675-5e6cfa9c-4344-42c4-a219-d03dd87c94d6.png">
 
+
+<img width="827" alt="image" src="https://user-images.githubusercontent.com/45479802/228751090-13d3ab86-672e-4be4-ba05-043ac7355f43.png">
+
+<p>설정 &gt; 개인정보 보안 및 보안 &gt; 전체 디스크 접근 권한</p>
+<img width="827" alt="image" src="https://user-images.githubusercontent.com/45479802/228751375-30d3ed1a-6211-4865-968b-a22014d161fe.png">
+
+<p>터미널을 체크한다.</p>
+<p><img src="https://user-images.githubusercontent.com/45479802/228805165-b3d56966-e4d4-47d1-9b28-1863afe4a10b.png" alt="image"></p>
+<p>연결 완료 화면</p>
+<hr>
+<h2 id="docker-설치-및-설정"><a href="#docker-설치-및-설정" class="headerlink" title="docker 설치 및 설정"></a>docker 설치 및 설정</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># yum package update</span></span><br><span class="line">$ sudo yum -y update</span><br><span class="line"></span><br><span class="line"><span class="comment"># install docker</span></span><br><span class="line">$ sudo yum install docker -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># check docker version</span></span><br><span class="line">$ docker -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># start docker service</span></span><br><span class="line">$ sudo service docker start</span><br><span class="line"></span><br><span class="line"><span class="comment"># 파일 권한 변경 (docker 서비스시 필요)</span></span><br><span class="line">$ sudo <span class="built_in">chmod</span> 666 /var/run/docker.sock</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>-y : 설치과정의 모든 질문을 yes로 입력</p>
+<hr>
+<h2 id="jdk-설치"><a href="#jdk-설치" class="headerlink" title="jdk 설치"></a>jdk 설치</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># intallable java version</span></span><br><span class="line">$ yum search java*</span><br><span class="line"></span><br><span class="line"><span class="comment"># install java</span></span><br><span class="line">$ sudo yum install java-11-amazon-corretto.x86_64 -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># check the java version</span></span><br><span class="line">$ java -version</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://user-images.githubusercontent.com/45479802/228798320-b1b63c1f-58ac-4abb-92da-0dd961b05b3e.png" alt="image"></p>
+<img alt="image" src="https://user-images.githubusercontent.com/45479802/228798998-01fca39f-5f18-4c1a-8fa2-028c5778822e.png">
+
+
+
+<hr>
+<h2 id="DB"><a href="#DB" class="headerlink" title="DB"></a>DB</h2><p>DB : mariadb</p>
+<p>왠만해서는 RDS 쓰는게 좋지만 가벼운 테스트 프로젝트이므로 docker 내 db를 설치함.</p>
+<h3 id="docker-volume"><a href="#docker-volume" class="headerlink" title="docker volume"></a>docker volume</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># docker volume 생성</span></span><br><span class="line"><span class="comment"># sudo docker volume create [volume명]</span></span><br><span class="line">$ sudo docker volume create mariadb-vol</span><br></pre></td></tr></table></figure>
+<details>
+<summary>docker volume 명령어</summary>
+<div markdown="1">
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># docker volume 조회</span></span><br><span class="line">$ docker volume <span class="built_in">ls</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 해당 볼륨 자세한 정보</span></span><br><span class="line">$ docker volume inspect [volume명]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 제거</span></span><br><span class="line">$ docker volume <span class="built_in">rm</span> [volume명]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 사용하지않는 모든 로컬 볼륨 삭제</span></span><br><span class="line">$ docker volume prune</span><br></pre></td></tr></table></figure>
+
+
+</div>
+</details>
+
+<h3 id="docker-내-DB-이미지-불러오기"><a href="#docker-내-DB-이미지-불러오기" class="headerlink" title="docker 내 DB 이미지 불러오기"></a>docker 내 DB 이미지 불러오기</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mariadb 설치</span></span><br><span class="line">$ docker pull mariadb/server:latest</span><br><span class="line"></span><br><span class="line">$ docker images</span><br></pre></td></tr></table></figure>
+<img width="514" alt="스크린샷 2023-03-30 오후 7 32 21" src="https://user-images.githubusercontent.com/45479802/228809684-e273f64c-cff5-4c18-a8f6-0f9a9046e85e.png">
+
+<h3 id="docker-컨테이너-마운트"><a href="#docker-컨테이너-마운트" class="headerlink" title="docker 컨테이너 마운트"></a>docker 컨테이너 마운트</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mount</span></span><br><span class="line"><span class="comment"># docker run --name [container명] -e MARIADB_ROOT_PASSWORD=[DB비번] -d -p [ec2 port]:[docker port] mariadb:latest</span></span><br><span class="line">$ docker run --name mariadb_cont -e MARIADB_ROOT_PASSWORD=1234 -d -p 3306:3306 mariadb:latest</span><br><span class="line"></span><br><span class="line"><span class="comment"># container list</span></span><br><span class="line">$ docker ps</span><br></pre></td></tr></table></figure>
+
+<h3 id="외부-DB-tool-연결"><a href="#외부-DB-tool-연결" class="headerlink" title="외부 DB tool 연결"></a>외부 DB tool 연결</h3><img width="894" alt="image" src="https://user-images.githubusercontent.com/45479802/228844197-f0af6672-cae9-41f1-8800-0ecd17da78a2.png">
     </div>
 
     
@@ -321,7 +372,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AWS"><span class="nav-number">1.</span> <span class="nav-text">AWS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4-%EC%84%A4%EC%A0%95-free-tier"><span class="nav-number">1.1.</span> <span class="nav-text">인스턴스 설정 (free tier)</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4-%EC%84%A4%EC%A0%95-free-tier"><span class="nav-number">1.</span> <span class="nav-text">인스턴스 설정 (free tier)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%EC%97%90%EB%9F%AC"><span class="nav-number">2.</span> <span class="nav-text">에러</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#docker-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EC%84%A4%EC%A0%95"><span class="nav-number">3.</span> <span class="nav-text">docker 설치 및 설정</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jdk-%EC%84%A4%EC%B9%98"><span class="nav-number">4.</span> <span class="nav-text">jdk 설치</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DB"><span class="nav-number">5.</span> <span class="nav-text">DB</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-volume"><span class="nav-number">5.1.</span> <span class="nav-text">docker volume</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-%EB%82%B4-DB-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EB%B6%88%EB%9F%AC%EC%98%A4%EA%B8%B0"><span class="nav-number">5.2.</span> <span class="nav-text">docker 내 DB 이미지 불러오기</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88-%EB%A7%88%EC%9A%B4%ED%8A%B8"><span class="nav-number">5.3.</span> <span class="nav-text">docker 컨테이너 마운트</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%99%B8%EB%B6%80-DB-tool-%EC%97%B0%EA%B2%B0"><span class="nav-number">5.4.</span> <span class="nav-text">외부 DB tool 연결</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
