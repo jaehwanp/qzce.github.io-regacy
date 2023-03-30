@@ -20,17 +20,24 @@
     var CONFIG = {"hostname":"qzce.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="run">
-<meta property="og:type" content="website">
-<meta property="og:title" content="qzce 개발블로그">
-<meta property="og:url" content="http://qzce.github.io/tags/spring/index.html">
+  <meta name="description" content="AWS인스턴스 설정 (free tier)AWS 콘솔에서 인스턴스 시작 버튼을 누름  원하는 이름, 원하는 OS를 설정.     키페어 생성     네트워크 설정  모든 IP에서 들어갈 수있게 SSH트래픽허용 (0.0.0.0&#x2F;0)으로 설정함  주의사항 12개월 후 돈내야함  프리 티어: 첫 해에는 월별 프리 티어 AMI에 대한 t2.micro(또는">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[AWS] AWS">
+<meta property="og:url" content="http://qzce.github.io/2023/03/28/aws-how-1/index.html">
 <meta property="og:site_name" content="qzce 개발블로그">
-<meta property="og:description" content="run">
+<meta property="og:description" content="AWS인스턴스 설정 (free tier)AWS 콘솔에서 인스턴스 시작 버튼을 누름  원하는 이름, 원하는 OS를 설정.     키페어 생성     네트워크 설정  모든 IP에서 들어갈 수있게 SSH트래픽허용 (0.0.0.0&#x2F;0)으로 설정함  주의사항 12개월 후 돈내야함  프리 티어: 첫 해에는 월별 프리 티어 AMI에 대한 t2.micro(또는">
 <meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://user-images.githubusercontent.com/45479802/228190970-8aad6aea-600e-4117-9069-aa0337245057.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/45479802/228192010-3475ac4b-49b9-4f44-8968-04587162a2f1.png">
+<meta property="article:published_time" content="2023-03-28T09:12:36.000Z">
+<meta property="article:modified_time" content="2023-03-29T16:05:39.869Z">
 <meta property="article:author" content="qzce">
+<meta property="article:tag" content="AWS">
+<meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/45479802/228190970-8aad6aea-600e-4117-9069-aa0337245057.png">
 
-<link rel="canonical" href="http://qzce.github.io/tags/spring/">
+<link rel="canonical" href="http://qzce.github.io/2023/03/28/aws-how-1/">
 
 
 <script id="page-configurations">
@@ -38,12 +45,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'ko'
   };
 </script>
 
-  <title>태그: spring | qzce 개발블로그</title>
+  <title>[AWS] AWS | qzce 개발블로그</title>
   
 
 
@@ -151,191 +158,117 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">spring
-          <small>태그</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
+    <link itemprop="mainEntityOfPage" href="http://qzce.github.io/2023/03/28/aws-how-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/coffeebook.jpg">
+      <meta itemprop="name" content="qzce">
+      <meta itemprop="description" content="run">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="qzce 개발블로그">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [AWS] AWS
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+
+              <time title="Post created: 2023-03-28 18:12:36" itemprop="dateCreated datePublished" datetime="2023-03-28T18:12:36+09:00">2023-03-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Updated at: 2023-03-30 01:05:39" itemprop="dateModified" datetime="2023-03-30T01:05:39+09:00">2023-03-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/AWS/" itemprop="url" rel="index"><span itemprop="name">AWS</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2023</span>
-    </div>
+        <h2 id="AWS"><a href="#AWS" class="headerlink" title="AWS"></a>AWS</h2><h3 id="인스턴스-설정-free-tier"><a href="#인스턴스-설정-free-tier" class="headerlink" title="인스턴스 설정 (free tier)"></a>인스턴스 설정 (free tier)</h3><p>AWS 콘솔에서 인스턴스 시작 버튼을 누름</p>
+<ol>
+<li>원하는 이름, 원하는 OS를 설정.</li>
+</ol>
+<img width="709" alt="image" src="https://user-images.githubusercontent.com/45479802/228190970-8aad6aea-600e-4117-9069-aa0337245057.png">
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<ol start="2">
+<li>키페어 생성</li>
+</ol>
+<img width="540" alt="image" src="https://user-images.githubusercontent.com/45479802/228192010-3475ac4b-49b9-4f44-8968-04587162a2f1.png">
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-02-01T09:00:00+09:00"
-              content="2023-02-01">
-          02-01
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/02/01/spring-detail-2/" itemprop="url">
-            <span itemprop="name">[SPRING] JPA (spring-data-jpa)</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-01-19T12:11:24+09:00"
-              content="2023-01-19">
-          01-19
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/01/19/spring-detail-1/" itemprop="url">
-            <span itemprop="name">[SPRING] Spring framework</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-01-12T18:31:14+09:00"
-              content="2023-01-12">
-          01-12
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/01/12/spring-board-5/" itemprop="url">
-            <span itemprop="name">[SPRING] SPRING BOOT + REST API + JPA 게시판(5) - Controller (with Talend API)</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-01-12T14:28:34+09:00"
-              content="2023-01-12">
-          01-12
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/01/12/spring-board-4/" itemprop="url">
-            <span itemprop="name">[SPRING] SPRING BOOT + REST API + JPA 게시판(4) - Service</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-01-07T18:30:43+09:00"
-              content="2023-01-07">
-          01-07
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/01/07/spring-board-3/" itemprop="url">
-            <span itemprop="name">[SPRING] SPRING BOOT + REST API + JPA 게시판(3) - Repository</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-01-07T18:30:38+09:00"
-              content="2023-01-07">
-          01-07
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/01/07/spring-board-2/" itemprop="url">
-            <span itemprop="name">[SPRING] SPRING BOOT + REST API + JPA 게시판(2) - Entity</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-01-07T18:00:39+09:00"
-              content="2023-01-07">
-          01-07
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/01/07/spring-board-1/" itemprop="url">
-            <span itemprop="name">[SPRING] SPRING BOOT + REST API + JPA 게시판(1) - 구성</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2023-01-04T17:23:18+09:00"
-              content="2023-01-04">
-          01-04
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2023/01/04/error-DataJpaTest-dataSource/" itemprop="url">
-            <span itemprop="name">[Error] @DataJpaTest 외장 DB 에러</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
+<ol start="3">
+<li>네트워크 설정</li>
+</ol>
+<p>모든 IP에서 들어갈 수있게 SSH트래픽허용 (0.0.0.0&#x2F;0)으로 설정함</p>
+<hr>
+<p>주의사항</p>
+<p>12개월 후 돈내야함</p>
+<blockquote>
+<p>프리 티어: 첫 해에는 월별 프리 티어 AMI에 대한 t2.micro(또는 t2.micro를 사용할 수 없는 리전의 t3.micro) 인스턴스 사용량 750시간, EBS 스토리지 30GiB, IO 2백만 개, 스냅샷 1GB, 인터넷 대역폭 100GB가 포함됩니다.</p>
+</blockquote>
+<hr>
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/AWS/" rel="tag"># AWS</a>
+              <a href="/tags/docker/" rel="tag"># docker</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/02/01/spring-detail-2/" rel="prev" title="[SPRING] JPA (spring-data-jpa)">
+      <i class="fa fa-chevron-left"></i> [SPRING] JPA (spring-data-jpa)
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
@@ -388,6 +321,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AWS"><span class="nav-number">1.</span> <span class="nav-text">AWS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4-%EC%84%A4%EC%A0%95-free-tier"><span class="nav-number">1.1.</span> <span class="nav-text">인스턴스 설정 (free tier)</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
