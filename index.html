@@ -157,6 +157,123 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
+    <link itemprop="mainEntityOfPage" href="http://qzce.github.io/2023/04/06/spring-detail-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/coffeebook.jpg">
+      <meta itemprop="name" content="qzce">
+      <meta itemprop="description" content="run">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="qzce 개발블로그">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/04/06/spring-detail-3/" class="post-title-link" itemprop="url">[SPRING] AOP</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+              
+
+              <time title="Post created: 2023-04-06 16:48:53 / Updated at: 20:49:42" itemprop="dateCreated datePublished" datetime="2023-04-06T16:48:53+09:00">2023-04-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="1-AOP"><a href="#1-AOP" class="headerlink" title="1. AOP"></a>1. AOP</h1><p>관점지향 프로그래밍 (Aspect Oriented Programming)</p>
+<p>프로그램의 여러 부분에서 반복적으로 사용되는 공통 로직을 분리하여 한 곳에서 관리</p>
+<h3 id="dependency"><a href="#dependency" class="headerlink" title="dependency"></a>dependency</h3><p>dependency 추가하여 사용</p>
+<p>pom.xml (maven)</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-aop<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>&#123;spring version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>build.gradle (gradle)</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">implementation <span class="string">&#x27;org.springframework:spring-aop&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="2-용어-설명"><a href="#2-용어-설명" class="headerlink" title="2. 용어 설명"></a>2. 용어 설명</h1><ol>
+<li><p>Aspect</p>
+<ul>
+<li>advice 메서드 결정</li>
+</ul>
+</li>
+<li><p>pointcut</p>
+<ul>
+<li>advice가 적용될 joinpoint를 정의</li>
+</ul>
+</li>
+<li><p>joinpoint</p>
+<ul>
+<li>프로그램 실행 중 특정 지점</li>
+<li>(실행시점 or 예외 발생 시점)</li>
+</ul>
+</li>
+<li><p>advice</p>
+<ul>
+<li>joinpoint에 삽입되어 동작하는 코드</li>
+</ul>
+</li>
+<li><p>weaving</p>
+<ul>
+<li>aspect를 실제 코드에 적용하는 과정</li>
+</ul>
+</li>
+</ol>
+<h3 id="advice-종류"><a href="#advice-종류" class="headerlink" title="advice 종류"></a>advice 종류</h3><ol>
+<li>Before : 메서드 실행 전 실행</li>
+<li>After : 메서드 실행 후 실행</li>
+<li>AfterReturning : 메서드가 성공적으로 완료된 뒤 실행</li>
+<li>AfterThrowing : 메서드 에러발생시 실행</li>
+<li>Around : 위에 모든 시점에서 실행</li>
+</ol>
+<h1 id="3-예시"><a href="#3-예시" class="headerlink" title="3. 예시"></a>3. 예시</h1><p>UserService에서 addUser() 호출시 자동으로 로그 남겨주는 예시</p>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserService</span> &#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addUser</span><span class="params">(User user)</span> &#123;</span><br><span class="line">        <span class="comment">// 사용자 추가 로직</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>addUser()</strong> 메서드는 joinPoint가 된다.<br>(아래 <strong>LoggingAspect</strong> 클래스에서 <em>execution(* com.qzce.service.UserService.addUser(..))</em> 으로 등록함)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LoggingAspect</span> &#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Logger</span> <span class="variable">logger</span> <span class="operator">=</span> LoggerFactory.getLogger(LoggingAspect.class);</span><br><span class="line"> </span><br><span class="line"> <span class="comment">// addUser() 실행 전 동작</span></span><br><span class="line">    <span class="meta">@Before(&quot;execution(* com.qzce.service.UserService.addUser(..)) &amp;&amp; args(user)&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">logBeforeAddUser</span><span class="params">(JoinPoint joinPoint, User user)</span> &#123;</span><br><span class="line">        logger.info(<span class="string">&quot;Before &quot;</span> + joinPoint.getSignature().getName() + <span class="string">&quot; method called with user: &quot;</span> + user.toString());</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="comment">// addUser() 정상실행 후 동작</span></span><br><span class="line">    <span class="meta">@AfterReturning(pointcut = &quot;execution(* com.qzce.service.UserService.addUser(..))&quot;, returning = &quot;result&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">logAfterReturningAddUser</span><span class="params">(JoinPoint joinPoint, Object result)</span> &#123;</span><br><span class="line">        logger.info(<span class="string">&quot;After &quot;</span> + joinPoint.getSignature().getName() + <span class="string">&quot; method returned: &quot;</span> + result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>JoinPoint 객체는 Advice가 적용되는 메소드와 관련된 정보를 제공하기 때문에, Advice 구현 시 JoinPoint 객체를 이용해 해당 메소드와 관련된 정보를 가져와 로깅 등의 기능을 구현할 수 있다.</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
     <link itemprop="mainEntityOfPage" href="http://qzce.github.io/2023/03/28/aws-how-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -995,97 +1112,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
-    <link itemprop="mainEntityOfPage" href="http://qzce.github.io/2023/01/02/thymeleaf-separate/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/coffeebook.jpg">
-      <meta itemprop="name" content="qzce">
-      <meta itemprop="description" content="run">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="qzce 개발블로그">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/01/02/thymeleaf-separate/" class="post-title-link" itemprop="url">[thymeleaf] HTML 분리 (head, header, footer)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">작성일</span>
-              
-
-              <time title="Post created: 2023-01-02 20:51:32 / Updated at: 21:30:10" itemprop="dateCreated datePublished" datetime="2023-01-02T20:51:32+09:00">2023-01-02</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/thymeleaf/" itemprop="url" rel="index"><span itemprop="name">thymeleaf</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="개요"><a href="#개요" class="headerlink" title="개요"></a>개요</h2><p>html에서 head, header, footer, nav 중복 쓰임을 줄이기 위함</p>
-<h2 id="환경설정"><a href="#환경설정" class="headerlink" title="환경설정"></a>환경설정</h2><ul>
-<li>gradle</li>
-<li>spring boot</li>
-</ul>
-<p><em>build.gradle</em></p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">implementation <span class="string">&#x27;nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="구성"><a href="#구성" class="headerlink" title="구성"></a>구성</h2><p><em>head.html</em></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns:th</span>=<span class="string">&quot;http://www.thymeleaf.org&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">th:block</span> <span class="attr">th:fragment</span>=<span class="string">&quot;headFragment&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>/&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- 공통 js, css --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://code.jquery.com/jquery-3.6.3.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">title</span>&gt;</span>title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">th:block</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><em>header.html</em></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns:th</span>=<span class="string">&quot;http://www.thymeleaf.org&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">th:block</span> <span class="attr">th:fragment</span>=<span class="string">&quot;headerFragment(headerParam)&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h2</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;headerParam&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">th:block</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>각 페이지 별로 header를 바꾸고 싶다면 파라미터를 설정할 수 있다.<br><code>&lt;th:block th:fragment=&quot;headerFragment(headerParam)&quot;&gt;</code></p>
-<p><em>footer.html</em></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns:th</span>=<span class="string">&quot;http://www.thymeleaf.org&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">th:block</span> <span class="attr">th:fragment</span>=<span class="string">&quot;footerFragment(footerParam)&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h2</span> <span class="attr">th:text</span>=<span class="string">&quot;$&#123;footerParam&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">th:block</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><em>index.html</em></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;ko&quot;</span> <span class="attr">xmlns:th</span>=<span class="string">&quot;http://www.thymeleaf.org&quot;</span> <span class="attr">xmlns:layout</span>=<span class="string">&quot;http://www.ultraq.net.nz/thymeleaf/layout&quot;</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- head --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">th:block</span> <span class="attr">th:replace</span>=<span class="string">&quot;fragments/head :: headFragment&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">th:block</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- header --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">th:block</span> <span class="attr">th:replace</span>=<span class="string">&quot;fragments/header :: headerFragment(&#x27;header&#x27;)&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">th:block</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      content...</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- footer --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">th:block</span> <span class="attr">th:replace</span>=<span class="string">&quot;fragments/footer :: footerFragment(&#x27;footer&#x27;)&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">th:block</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>html태그에 thymeleaf-layout-dialect 기능을 쓰기 위하여<br><code>xmlns:layout=&quot;http://www.ultraq.net.nz/thymeleaf/layout&quot;</code> 를 입력한다</p>
-<p>head, header, footer를 index.html에 모아준다</p>
-<h2 id="실행결과"><a href="#실행결과" class="headerlink" title="실행결과"></a>실행결과</h2><p><img src="https://user-images.githubusercontent.com/45479802/210230961-7c9a5b1d-eff1-4b23-bca0-2809f5250930.png" alt="image"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1157,7 +1183,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
@@ -1170,7 +1196,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>
