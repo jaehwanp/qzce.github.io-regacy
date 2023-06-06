@@ -157,7 +157,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
-    <link itemprop="mainEntityOfPage" href="http://qzce.github.io/2023/04/06/spring-detail-3/">
+    <link itemprop="mainEntityOfPage" href="http://qzce.github.io/2023/04/20/Spring/spring-security-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/coffeebook.jpg">
@@ -171,7 +171,147 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/04/06/spring-detail-3/" class="post-title-link" itemprop="url">[SPRING] AOP</a>
+            <a href="/2023/04/20/Spring/spring-security-1/" class="post-title-link" itemprop="url">[SPRING] spring security</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+
+              <time title="Post created: 2023-04-20 15:46:41" itemprop="dateCreated datePublished" datetime="2023-04-20T15:46:41+09:00">2023-04-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Updated at: 2023-04-23 22:45:53" itemprop="dateModified" datetime="2023-04-23T22:45:53+09:00">2023-04-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="SPRING-SECURITY"><a href="#SPRING-SECURITY" class="headerlink" title="SPRING SECURITY"></a>SPRING SECURITY</h1><h2 id="인증-API"><a href="#인증-API" class="headerlink" title="인증 API"></a>인증 API</h2><h3 id="Form-인증-순서"><a href="#Form-인증-순서" class="headerlink" title="Form 인증 순서"></a>Form 인증 순서</h3><ol>
+<li>Client에서 api 호출했을 때 인증이 안되면 로그인 페이지로 리다이렉트</li>
+<li>인증이 되면 session 및 인증 토큰 생성&#x2F;저장</li>
+<li>다시 Client에서 api 호출하면 서버에서 세션에 저장된 인증 토큰으로 접근하여 맞는지 확인함</li>
+</ol>
+<h4 id="정확한-순서"><a href="#정확한-순서" class="headerlink" title="(정확한 순서)"></a>(정확한 순서)</h4><ol>
+<li>Client에서 보낸 요청 -&gt; UsernamePasswordAuthenticationFilter 요청정보 매칭 확인</li>
+<li>AntPathRequestMatcher(&#x2F;login)<ul>
+<li>틀리면 : chain.doFilter</li>
+<li>맞다면 : Authentication 에서 인증 처리를 전달</li>
+</ul>
+</li>
+<li>AuthenticationManager 내부에서 AuthenticationProvier에게 인증처리를 위임 <ul>
+<li>인증실패 : AuthenticationException을 발생시켜 다시 1번으로 넘어감</li>
+<li>인증성공 : AuthenticationManager에서 인증 객체를 4번에 넘겨줌</li>
+</ul>
+</li>
+<li>Authentication 인증객체 만듬 (User정보 + Authorities정보)</li>
+<li>SecurityContext (인증 객체 저장소) -&gt; session에 저장</li>
+<li>SuccessHandler 호출</li>
+</ol>
+<h4 id="securityFilterChain-HttpSecurity-http"><a href="#securityFilterChain-HttpSecurity-http" class="headerlink" title="securityFilterChain(HttpSecurity http)"></a>securityFilterChain(HttpSecurity http)</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">http</span><br><span class="line">    <span class="comment">// 인가 정책 설정</span></span><br><span class="line">  .authorizeHttpRequests((requests) -&gt; requests      </span><br><span class="line">    .requestMatchers(<span class="string">&quot;/&quot;</span>).permitAll() <span class="comment">// 해당 url은 로그인 없이 접근가능</span></span><br><span class="line">    .anyRequest().authenticated() <span class="comment">// 위 url 제외 모두 인증 필요</span></span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 로그인 기능</span></span><br><span class="line">  .formLogin((form) - &gt; form</span><br><span class="line">    .loginPage()  <span class="comment">// 사용자 정의 로그인 페이지</span></span><br><span class="line">    .usernameParameter() <span class="comment">// 아이디 파라미터명</span></span><br><span class="line">    .passwordParameter() <span class="comment">// 패스워드 파라미터명</span></span><br><span class="line">    .failureForwardUrl() <span class="comment">// 로그인 실패 후 포워딩 경로</span></span><br><span class="line">    .successForwardUrl() <span class="comment">// 로그인 성공 후 포워딩 경로</span></span><br><span class="line">    .failureUrl() <span class="comment">// 로그인 실패 후 이동 페이지</span></span><br><span class="line">    .successUrl() <span class="comment">// 로그인 성공 후 이동 페이지</span></span><br><span class="line">    .loginProcessingUrl() <span class="comment">// submit url</span></span><br><span class="line">    .successHandler() <span class="comment">// 로그인 성공 후 핸들러</span></span><br><span class="line">    .failureHandler() <span class="comment">// 로그인 실패 후 핸들러</span></span><br><span class="line">  )</span><br><span class="line">    <span class="comment">// 로그아웃 기능</span></span><br><span class="line">  .logout((logout) -&gt; logout</span><br><span class="line">    .logoutUrl(<span class="string">&quot;&quot;</span>)</span><br><span class="line">    .logoutSuccessUrl(<span class="string">&quot;&quot;</span>)</span><br><span class="line">    .deleteCookies(<span class="string">&quot;cookie name&quot;</span>)    <span class="comment">// 쿠키 제거</span></span><br><span class="line">    .addLogoutHandler(logoutHandler())</span><br><span class="line">    .logoutSuccessHandler(logoutSuccessHandler())</span><br><span class="line">  )</span><br><span class="line">    <span class="comment">// remember me (쿠키) 세션이 만료되어도 어플리케이션이 사용자를 기억하는 기능</span></span><br><span class="line">  .rememberMe((rememberMe) -&gt; rememberMe</span><br><span class="line">    .rememberMeParameter(<span class="string">&quot;&quot;</span>)  <span class="comment">// 파라미터명 설정</span></span><br><span class="line">    .tokenValiditySeconds(<span class="number">3600</span>) <span class="comment">// 토큰 유효기간</span></span><br><span class="line">    .alwaysRemember(<span class="literal">false</span>)  <span class="comment">// true : 체크 안해도 기억</span></span><br><span class="line">    .userDetailsService() </span><br><span class="line">  )</span><br><span class="line">    <span class="comment">// 동시 세션 제어</span></span><br><span class="line">  .sessionManagement()</span><br><span class="line">    .sessionFixation().changeSessionId() <span class="comment">// 세션 고정 보호 (none, migrateSession, newSession)</span></span><br><span class="line">    .maximumSessions(<span class="number">1</span>)  <span class="comment">// 최대 허용 가능 세션</span></span><br><span class="line">    .maxSessionsPreventsLogin(<span class="literal">false</span>) <span class="comment">// true : 현재 사용자 인증 실패 , false : 이전 사용자 세션 만료</span></span><br><span class="line">    .expiredUrl(<span class="string">&quot;/&quot;</span>)    <span class="comment">// 세션이 만료된 경우 이동할 페이지</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// exceptionHandling</span></span><br><span class="line">  .exceptionHandling((exceptHandler) -&gt; exceptHandler</span><br><span class="line">      .authenticationEntryPoint(<span class="keyword">new</span> <span class="title class_">AuthenticationEntryPoint</span>() &#123;</span><br><span class="line">          <span class="meta">@Override</span></span><br><span class="line">          <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">commence</span><span class="params">(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)</span> <span class="keyword">throws</span> IOException, ServletException &#123;</span><br><span class="line">              response.sendRedirect(<span class="string">&quot;/login&quot;</span>);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">      .accessDeniedHandler(<span class="keyword">new</span> <span class="title class_">AccessDeniedHandler</span>() &#123;</span><br><span class="line">          <span class="meta">@Override</span></span><br><span class="line">          <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">handle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException)</span> <span class="keyword">throws</span> IOException, ServletException &#123;</span><br><span class="line">              response.sendRedirect(<span class="string">&quot;/denied&quot;</span>);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">  )</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="remember-me-인증"><a href="#remember-me-인증" class="headerlink" title="remember me 인증"></a>remember me 인증</h3><ol>
+<li>client rememberme 쿠키를 가지고 있음</li>
+<li>RememberMeAuthenticationFilter (null check)</li>
+<li>TokenBasedRememberMeServices, PersistentTokenBasedRememberMeServices(DB에 저장) 구현체</li>
+<li>RememberMeServices에서 Token Cookie 추출<ul>
+<li>token 없애 : chain.doFilter -&gt; Exception</li>
+<li>token 존재 : 토큰 정상 유무 판단 (토큰 서로 일치?, DB에 user 계정 존재?) -&gt; 새로운 Authentication 생성</li>
+</ul>
+</li>
+</ol>
+<h3 id="AnonymousAuthenticationFilter"><a href="#AnonymousAuthenticationFilter" class="headerlink" title="AnonymousAuthenticationFilter"></a>AnonymousAuthenticationFilter</h3><p>익명사용자, 인증 사용자 구분해서 처리<br>security context 안에 인증객체 여부 판단</p>
+<h2 id="동시-세션-제어"><a href="#동시-세션-제어" class="headerlink" title="동시 세션 제어"></a>동시 세션 제어</h2><p>최대 세션 허용 개수 초과</p>
+<p>(A,B 사용자는 같은 계정)</p>
+<ol>
+<li>이전 사용자 세션 만료 <ol>
+<li>A 사용자 로그인 (세션 생성)</li>
+<li>B 사용자 로그인 (세션 생성 및 이전 사용자 세션 만료)</li>
+<li>A 사용자 링크 접속 -&gt; A 사용자 세션 만료</li>
+</ol>
+</li>
+<li>현재 사용자 인증 실패<ol>
+<li>A 사용자 로그인 (세션 생성)</li>
+<li>B 사용자 로그인 (인증 예외)</li>
+</ol>
+</li>
+</ol>
+<h3 id="ConcurrentSessionFilter"><a href="#ConcurrentSessionFilter" class="headerlink" title="ConcurrentSessionFilter"></a>ConcurrentSessionFilter</h3><p>매 요청 마다 현재 사용자의 세션 만료 여부 체크<br>세션이 만료되었을 경우 즉시 만료 처리</p>
+<h2 id="권한-설정"><a href="#권한-설정" class="headerlink" title="권한 설정"></a>권한 설정</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">http</span><br><span class="line">  .authorizeHttpRequests((requests) -&gt; requests       <span class="comment">// 인가 정책</span></span><br><span class="line">    .requestMatchers(<span class="string">&quot;/&quot;</span>).permitAll()</span><br><span class="line">    .requestMatchers(<span class="string">&quot;/mypage/info&quot;</span>).hasRole(<span class="string">&quot;USER&quot;</span>)</span><br><span class="line">    .requestMatchers(<span class="string">&quot;/mypage/**&quot;</span>).hasRole(<span class="string">&quot;USER&quot;</span>)</span><br><span class="line">    .requestMatchers(<span class="string">&quot;/admin/info&quot;</span>).access(</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">WebExpressionAuthorizationManager</span>(</span><br><span class="line">                    <span class="string">&quot;hasRole(&#x27;ADMIN&#x27;) and hasRole(&#x27;SYS&#x27;)&quot;</span></span><br><span class="line">            )</span><br><span class="line">    )</span><br><span class="line">    .requestMatchers(<span class="string">&quot;/admin/**&quot;</span>).hasRole(<span class="string">&quot;ADMIN&quot;</span>)</span><br><span class="line">    .anyRequest().authenticated()</span><br><span class="line">  )</span><br></pre></td></tr></table></figure>
+
+<h3 id="ExeptionTranslationFilter"><a href="#ExeptionTranslationFilter" class="headerlink" title="ExeptionTranslationFilter"></a>ExeptionTranslationFilter</h3><ul>
+<li>AuthenticationException<ul>
+<li>인증 예외 처리<ul>
+<li>AuthenticationEntryPoint 호출 : RequestCache (세션에 저장된 사용자 요청 정보를 꺼내옴 [SaveRequest : 파라미터, 헤더값 저장])</li>
+<li>인증 예외가 발생하기 전의 요청 정보를 저장</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="CsrfFilter-사이트-간-요청-위조"><a href="#CsrfFilter-사이트-간-요청-위조" class="headerlink" title="CsrfFilter (사이트 간 요청 위조)"></a>CsrfFilter (사이트 간 요청 위조)</h3><ul>
+<li>모든 요청에 랜덤하게 생성된 토큰을 http 파라미터로 요구</li>
+<li>요청 시 전달되는 토큰 값과 서버에 저장된 실제 값과 비교한 후 만약 일치하지 않으면 요청은 실패</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line">                .authorizeHttpRequests((requests) -&gt; requests       <span class="comment">// 인가 정책</span></span><br><span class="line"><span class="comment">//                        .requestMatchers(&quot;/login&quot;).permitAll()</span></span><br><span class="line"><span class="comment">//                        .requestMatchers(&quot;/mypage/**&quot;).hasRole(&quot;USER&quot;)</span></span><br><span class="line"><span class="comment">//                        .requestMatchers(&quot;/admin/pay&quot;).hasRole(&quot;ADMIN&quot;)</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//                        .requestMatchers(&quot;/admin/**&quot;).access(</span></span><br><span class="line"><span class="comment">//                                new WebExpressionAuthorizationManager(</span></span><br><span class="line"><span class="comment">//                                        &quot;hasRole(&#x27;ADMIN&#x27;) and hasRole(&#x27;SYS&#x27;)&quot;</span></span><br><span class="line"><span class="comment">//                                )</span></span><br><span class="line"><span class="comment">//                        )</span></span><br><span class="line"></span><br><span class="line">                        .anyRequest().authenticated()</span><br><span class="line">                )</span><br><span class="line"></span><br><span class="line">                <span class="comment">// login</span></span><br><span class="line">                .formLogin((form) -&gt; form</span><br><span class="line"><span class="comment">//                        .loginPage(&quot;/login&quot;)            // 사용자 정의 페이지</span></span><br><span class="line">                        .defaultSuccessUrl(<span class="string">&quot;/&quot;</span>)         <span class="comment">// 로그인 성공 후 페이지</span></span><br><span class="line">                        .failureUrl(<span class="string">&quot;/login&quot;</span>)           <span class="comment">// 로그인 실패 후 페이지</span></span><br><span class="line">                        .usernameParameter(<span class="string">&quot;userId&quot;</span>)</span><br><span class="line">                        .passwordParameter(<span class="string">&quot;password&quot;</span>)</span><br><span class="line">                        .loginProcessingUrl(<span class="string">&quot;/loginProc&quot;</span>)</span><br><span class="line">                        .successHandler(<span class="keyword">new</span> <span class="title class_">AuthenticationSuccessHandler</span>() &#123;   <span class="comment">// 로그인 성공 후 핸들러</span></span><br><span class="line">                            <span class="meta">@Override</span></span><br><span class="line">                            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onAuthenticationSuccess</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Authentication authentication)</span> <span class="keyword">throws</span> IOException, ServletException &#123;</span><br><span class="line">                                <span class="type">RequestCache</span> <span class="variable">requestCache</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HttpSessionRequestCache</span>();</span><br><span class="line">                                <span class="type">SavedRequest</span> <span class="variable">savedRequest</span> <span class="operator">=</span> requestCache.getRequest(request, response);</span><br><span class="line">                                <span class="type">String</span> <span class="variable">redirectUrl</span> <span class="operator">=</span> savedRequest.getRedirectUrl();</span><br><span class="line">                                response.sendRedirect(redirectUrl);</span><br><span class="line"><span class="comment">//                                System.out.println(&quot;Authentication&quot; + authentication.getName());</span></span><br><span class="line"><span class="comment">//                                response.sendRedirect(&quot;/&quot;);</span></span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;)</span><br><span class="line">                        .failureHandler(<span class="keyword">new</span> <span class="title class_">AuthenticationFailureHandler</span>() &#123;</span><br><span class="line">                            <span class="meta">@Override</span></span><br><span class="line">                            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onAuthenticationFailure</span><span class="params">(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)</span> <span class="keyword">throws</span> IOException, ServletException &#123;</span><br><span class="line">                                System.out.println(<span class="string">&quot;exception&quot;</span> + exception.getMessage());</span><br><span class="line">                                response.sendRedirect(<span class="string">&quot;/login&quot;</span>);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;)</span><br><span class="line">                        .permitAll()</span><br><span class="line">                )</span><br><span class="line"></span><br><span class="line">                <span class="comment">// logout</span></span><br><span class="line">                .logout((logout) -&gt; logout</span><br><span class="line">                        .logoutUrl(<span class="string">&quot;/logout&quot;</span>)</span><br><span class="line">                        .logoutSuccessUrl(<span class="string">&quot;/login&quot;</span>)</span><br><span class="line">                        .addLogoutHandler(<span class="keyword">new</span> <span class="title class_">LogoutHandler</span>() &#123;</span><br><span class="line">                            <span class="meta">@Override</span></span><br><span class="line">                            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">logout</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Authentication authentication)</span> &#123;</span><br><span class="line">                                <span class="type">HttpSession</span> <span class="variable">session</span> <span class="operator">=</span> request.getSession();</span><br><span class="line">                                session.invalidate();   <span class="comment">// 세션 무효화</span></span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;)</span><br><span class="line">                        .logoutSuccessHandler(<span class="keyword">new</span> <span class="title class_">LogoutSuccessHandler</span>() &#123;</span><br><span class="line">                            <span class="meta">@Override</span></span><br><span class="line">                            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onLogoutSuccess</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Authentication authentication)</span> <span class="keyword">throws</span> IOException, ServletException &#123;</span><br><span class="line">                                response.sendRedirect(<span class="string">&quot;/login&quot;</span>);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;)</span><br><span class="line">                        .deleteCookies(<span class="string">&quot;remember-me&quot;</span>)</span><br><span class="line">                        .permitAll())</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 예외처리 기능</span></span><br><span class="line">                .exceptionHandling((exceptHandler) -&gt; exceptHandler</span><br><span class="line">                        .authenticationEntryPoint(<span class="keyword">new</span> <span class="title class_">AuthenticationEntryPoint</span>() &#123;</span><br><span class="line">                            <span class="meta">@Override</span></span><br><span class="line">                            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">commence</span><span class="params">(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)</span> <span class="keyword">throws</span> IOException, ServletException &#123;</span><br><span class="line">                                response.sendRedirect(<span class="string">&quot;/login&quot;</span>);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;)</span><br><span class="line">                        .accessDeniedHandler(<span class="keyword">new</span> <span class="title class_">AccessDeniedHandler</span>() &#123;</span><br><span class="line">                            <span class="meta">@Override</span></span><br><span class="line">                            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">handle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException)</span> <span class="keyword">throws</span> IOException, ServletException &#123;</span><br><span class="line">                                response.sendRedirect(<span class="string">&quot;/denied&quot;</span>);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;)</span><br><span class="line">                )</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                <span class="comment">// remember me</span></span><br><span class="line">                .rememberMe((rememberMe) -&gt; rememberMe</span><br><span class="line">                        .rememberMeParameter(<span class="string">&quot;remember&quot;</span>)</span><br><span class="line">                        .tokenValiditySeconds(<span class="number">3600</span>) <span class="comment">// 1시간</span></span><br><span class="line">                        .userDetailsService(userDetailsService)</span><br><span class="line">                )</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 세션 관리</span></span><br><span class="line">                .sessionManagement((sm) -&gt; sm</span><br><span class="line">                    .sessionFixation().changeSessionId()    <span class="comment">// 세션 고정 보호 (기본값 changeSessionId)</span></span><br><span class="line">                    .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) <span class="comment">// 세션 관리 기능 (stateless -&gt; jwt 할떄 사용)</span></span><br><span class="line">                    .maximumSessions(<span class="number">1</span>)  <span class="comment">// 최대 허용 가능 세션</span></span><br><span class="line">                    .maxSessionsPreventsLogin(<span class="literal">false</span>) <span class="comment">// true : 현재 사용자 인증 실패 , false : 이전 사용자 세션 만료</span></span><br><span class="line">                    .expiredUrl(<span class="string">&quot;/&quot;</span>)    <span class="comment">// 세션이 만료된 경우 이동할 페이지</span></span><br><span class="line">                )</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
+    <link itemprop="mainEntityOfPage" href="http://qzce.github.io/2023/04/06/Spring/spring-detail-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/coffeebook.jpg">
+      <meta itemprop="name" content="qzce">
+      <meta itemprop="description" content="run">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="qzce 개발블로그">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/04/06/Spring/spring-detail-3/" class="post-title-link" itemprop="url">[SPRING] AOP</a>
         </h2>
 
         <div class="post-meta">
@@ -412,7 +552,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
-    <link itemprop="mainEntityOfPage" href="http://qzce.github.io/2023/02/01/spring-detail-2/">
+    <link itemprop="mainEntityOfPage" href="http://qzce.github.io/2023/02/01/Spring/spring-detail-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/coffeebook.jpg">
@@ -426,7 +566,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/02/01/spring-detail-2/" class="post-title-link" itemprop="url">[SPRING] JPA (spring-data-jpa)</a>
+            <a href="/2023/02/01/Spring/spring-detail-2/" class="post-title-link" itemprop="url">[SPRING] JPA (spring-data-jpa)</a>
         </h2>
 
         <div class="post-meta">
@@ -511,7 +651,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
-    <link itemprop="mainEntityOfPage" href="http://qzce.github.io/2023/01/19/spring-detail-1/">
+    <link itemprop="mainEntityOfPage" href="http://qzce.github.io/2023/01/19/Spring/spring-detail-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/coffeebook.jpg">
@@ -525,7 +665,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/01/19/spring-detail-1/" class="post-title-link" itemprop="url">[SPRING] Spring framework</a>
+            <a href="/2023/01/19/Spring/spring-detail-1/" class="post-title-link" itemprop="url">[SPRING] Spring framework</a>
         </h2>
 
         <div class="post-meta">
@@ -647,7 +787,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
-    <link itemprop="mainEntityOfPage" href="http://qzce.github.io/2023/01/12/spring-board-5/">
+    <link itemprop="mainEntityOfPage" href="http://qzce.github.io/2023/01/12/Spring/spring-board-5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/coffeebook.jpg">
@@ -661,7 +801,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/01/12/spring-board-5/" class="post-title-link" itemprop="url">[SPRING] SPRING BOOT + REST API + JPA 게시판(5) - Controller (with Talend API)</a>
+            <a href="/2023/01/12/Spring/spring-board-5/" class="post-title-link" itemprop="url">[SPRING] SPRING BOOT + REST API + JPA 게시판(5) - Controller (with Talend API)</a>
         </h2>
 
         <div class="post-meta">
@@ -723,7 +863,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
-    <link itemprop="mainEntityOfPage" href="http://qzce.github.io/2023/01/12/spring-board-4/">
+    <link itemprop="mainEntityOfPage" href="http://qzce.github.io/2023/01/12/Spring/spring-board-4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/coffeebook.jpg">
@@ -737,7 +877,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/01/12/spring-board-4/" class="post-title-link" itemprop="url">[SPRING] SPRING BOOT + REST API + JPA 게시판(4) - Service</a>
+            <a href="/2023/01/12/Spring/spring-board-4/" class="post-title-link" itemprop="url">[SPRING] SPRING BOOT + REST API + JPA 게시판(4) - Service</a>
         </h2>
 
         <div class="post-meta">
@@ -790,7 +930,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
-    <link itemprop="mainEntityOfPage" href="http://qzce.github.io/2023/01/07/spring-board-3/">
+    <link itemprop="mainEntityOfPage" href="http://qzce.github.io/2023/01/07/Spring/spring-board-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/coffeebook.jpg">
@@ -804,7 +944,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/01/07/spring-board-3/" class="post-title-link" itemprop="url">[SPRING] SPRING BOOT + REST API + JPA 게시판(3) - Repository</a>
+            <a href="/2023/01/07/Spring/spring-board-3/" class="post-title-link" itemprop="url">[SPRING] SPRING BOOT + REST API + JPA 게시판(3) - Repository</a>
         </h2>
 
         <div class="post-meta">
@@ -869,7 +1009,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
-    <link itemprop="mainEntityOfPage" href="http://qzce.github.io/2023/01/07/spring-board-2/">
+    <link itemprop="mainEntityOfPage" href="http://qzce.github.io/2023/01/07/Spring/spring-board-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/coffeebook.jpg">
@@ -883,7 +1023,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/01/07/spring-board-2/" class="post-title-link" itemprop="url">[SPRING] SPRING BOOT + REST API + JPA 게시판(2) - Entity</a>
+            <a href="/2023/01/07/Spring/spring-board-2/" class="post-title-link" itemprop="url">[SPRING] SPRING BOOT + REST API + JPA 게시판(2) - Entity</a>
         </h2>
 
         <div class="post-meta">
@@ -892,10 +1032,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">작성일</span>
-              
 
-              <time title="Post created: 2023-01-07 18:30:38 / Updated at: 19:57:33" itemprop="dateCreated datePublished" datetime="2023-01-07T18:30:38+09:00">2023-01-07</time>
+              <time title="Post created: 2023-01-07 18:30:38" itemprop="dateCreated datePublished" datetime="2023-01-07T18:30:38+09:00">2023-01-07</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Updated at: 2023-01-12 18:31:04" itemprop="dateModified" datetime="2023-01-12T18:31:04+09:00">2023-01-12</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -947,7 +1093,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
-    <link itemprop="mainEntityOfPage" href="http://qzce.github.io/2023/01/07/spring-board-1/">
+    <link itemprop="mainEntityOfPage" href="http://qzce.github.io/2023/01/07/Spring/spring-board-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/coffeebook.jpg">
@@ -961,7 +1107,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/01/07/spring-board-1/" class="post-title-link" itemprop="url">[SPRING] SPRING BOOT + REST API + JPA 게시판(1) - 구성</a>
+            <a href="/2023/01/07/Spring/spring-board-1/" class="post-title-link" itemprop="url">[SPRING] SPRING BOOT + REST API + JPA 게시판(1) - 구성</a>
         </h2>
 
         <div class="post-meta">
@@ -1011,92 +1157,6 @@
 <p>localhost:8080으로 접속</p>
 <p><img src="/../../public/images/post/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202023-01-07%20%EC%98%A4%ED%9B%84%206.38.59.png" alt="image"></p>
 <p>해당 화면이 나오면 성공</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="ko">
-    <link itemprop="mainEntityOfPage" href="http://qzce.github.io/2023/01/04/error-DataJpaTest-dataSource/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/coffeebook.jpg">
-      <meta itemprop="name" content="qzce">
-      <meta itemprop="description" content="run">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="qzce 개발블로그">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/01/04/error-DataJpaTest-dataSource/" class="post-title-link" itemprop="url">[Error] @DataJpaTest 외장 DB 에러</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">작성일</span>
-              
-
-              <time title="Post created: 2023-01-04 17:23:18 / Updated at: 17:55:38" itemprop="dateCreated datePublished" datetime="2023-01-04T17:23:18+09:00">2023-01-04</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/error/" itemprop="url" rel="index"><span itemprop="name">error</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="개요"><a href="#개요" class="headerlink" title="개요"></a>개요</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.assertj.core.api.Assertions;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.extension.ExtendWith;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.context.junit.jupiter.SpringExtension;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ExtendWith(SpringExtension.class)</span></span><br><span class="line"><span class="meta">@DataJpaTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BoardTest</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> TestEntityManager testEntityManager;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> title_빈값() &#123;</span><br><span class="line">        Assertions.assertThatIllegalArgumentException()</span><br><span class="line">                .isThrownBy(() -&gt; <span class="keyword">new</span> <span class="title class_">Board</span>(<span class="literal">null</span>, <span class="string">&quot;content&quot;</span>))</span><br><span class="line">                .withMessage(<span class="string">&quot;title is empty&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="에러"><a href="#에러" class="headerlink" title="에러"></a>에러</h2><p>토이 프로젝트 중 에러가 남</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name &#x27;org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaConfiguration&#x27;: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name &#x27;dataSource&#x27;: Invocation of init method failed; nested exception is java.lang.IllegalStateException: Failed to replace DataSource with an embedded database for tests. If you want an embedded database please put a supported one on the classpath or tune the replace attribute of @AutoConfigureTestDatabase.</span><br></pre></td></tr></table></figure>
-
-<p>마지막 줄을 보면 embedded database의 classpath가 맞지 않다고 나와있다.</p>
-<p>나는 따로 설치한 mariaDB를 연동해서 쓰고있었다.</p>
-<p><em>@AutoConfigureTestDatabase</em></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> AutoConfigureTestDatabase &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">enum</span> <span class="title class_">Replace</span> &#123;</span><br><span class="line"></span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * Replace the DataSource bean whether it was auto-configured or manually defined.</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		ANY,</span><br><span class="line"></span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * Only replace the DataSource if it was auto-configured.</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		AUTO_CONFIGURED,</span><br><span class="line"></span><br><span class="line">		<span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * Don&#x27;t replace the application default DataSource.</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		NONE</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>AutoConfigureTestDatabase에서 따로 설정을 하지않으면 embedded Database로 테스트가 실행된다.</p>
-<p>replace&#x3D;AutoConfigureTestDatabase.NONE으로 값을 덮어 씌우면 설정해놓은 DB를 테스트에 사용할 수 있다.</p>
-<h2 id="해결"><a href="#해결" class="headerlink" title="해결"></a>해결</h2><p>해당 어노테이션 추가하면 내장 DB가 아닌 내가 설정한 DataSource로 설정이 된다.</p>
-<blockquote>
-<p>@AutoConfigureTestDatabase(replace &#x3D; AutoConfigureTestDatabase.Replace.NONE)</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.assertj.core.api.Assertions;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.extension.ExtendWith;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;</span><br><span class="line"><span class="keyword">import</span> org.springframework.test.context.junit.jupiter.SpringExtension;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ExtendWith(SpringExtension.class)</span></span><br><span class="line"><span class="meta">@DataJpaTest</span></span><br><span class="line"><span class="meta">@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)</span> <span class="comment">// 추가</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BoardTest</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> TestEntityManager testEntityManager;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> title_빈값() &#123;</span><br><span class="line">        Assertions.assertThatIllegalArgumentException()</span><br><span class="line">                .isThrownBy(() -&gt; <span class="keyword">new</span> <span class="title class_">Board</span>(<span class="literal">null</span>, <span class="string">&quot;content&quot;</span>))</span><br><span class="line">                .withMessage(<span class="string">&quot;title is empty&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>@SpringBootTest<br>모든 설정을 가져와서 하기 때문에 이런거 필요없다.</p>
 
       
     </div>
@@ -1183,7 +1243,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">포스트</span>
         </a>
       </div>
@@ -1196,7 +1256,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">태그</span></a>
       </div>
   </nav>
